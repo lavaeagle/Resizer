@@ -96,10 +96,10 @@ class Resizer {
 		// Resample - create image canvas of x, y size
 		$this->image_resized = imagecreatetruecolor(  $optimal_width  , $optimal_height  );
 		
-		// Keeps transparent backgrounds on gifs and pngs.  Jpegs are fine because they have no transparencies.
-		imagecolortransparent($this->image_resized, imagecolorallocatealpha($this->image_resized, 0, 0, 0, 127));
-		imagealphablending($this->image_resized, false);
-		imagesavealpha($this->image_resized, true);
+		// Retain transparency for PNG and GIF files.
+		imagecolortransparent( $this->image_resized , imagecolorallocatealpha( $this->image_resized , 0 , 0 , 0 , 127 ) );
+		imagealphablending( $this->image_resized , false );
+		imagesavealpha( $this->image_resized , true );
 		
 		// Create the new image.
 		imagecopyresampled( $this->image_resized , $this->image , 0 , 0 , 0 , 0 , $optimal_width , $optimal_height , $this->width , $this->height );
@@ -353,6 +353,16 @@ class Resizer {
 		
 		// Now crop from center to exact requested size
 		$this->image_resized = imagecreatetruecolor( $new_width , $new_height );
+
+		// Now crop from center to exact requested size
+		$this->image_resized = imagecreatetruecolor( $new_width , $new_height );
+
+		// Retain transparency for PNG and GIF files.
+		imagecolortransparent( $this->image_resized , imagecolorallocatealpha( $this->image_resized , 0 , 0 , 0 , 127 ) );
+		imagealphablending( $this->image_resized , false );
+		imagesavealpha( $this->image_resized , true );
+
+		// Create the new image.
 		imagecopyresampled( $this->image_resized , $crop , 0 , 0 , $crop_start_x , $crop_start_y , $new_width , $new_height  , $new_width , $new_height );
 		
 		return true;
